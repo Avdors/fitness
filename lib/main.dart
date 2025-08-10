@@ -12,9 +12,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(fontFamily: 'poppins'),
-      home: const HomePage(),
+      debugShowCheckedModeBanner: false, // убрать баннер отладки
+      theme: ThemeData(fontFamily: 'poppins'), // установить шрифт по умолчанию для всего приложения
+      home:  HomePage(),
     );
   }
 }
