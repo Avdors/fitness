@@ -1,4 +1,5 @@
 import 'package:fitness/models/category_model.dart';
+import 'package:fitness/models/diet_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -13,19 +14,29 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   List<CategoryModel> categories = []; 
  // назначаем переменную для хранения списка категорий
+ List<DietModel> diets = []; // назначаем переменную для хранения списка диет
   void _getCategories() {
     categories = CategoryModel.getCategories(); // вызываем метод getCategories из модели CategoryModel
+  }
+
+  void _getDiets() {
+    diets = DietModel.getDiets(); // вызываем метод getCategories из модели CategoryModel
+  }
+
+  void _getInitialInfo(){
+    _getCategories(); // вызываем метод getCategories для получения списка категорий
+    _getDiets(); // вызываем метод getDiets для получения списка диет
   }
 
   @override
   void initState() {
    
-    _getCategories(); // вызываем метод getCategories при инициализации состояния
+    _getInitialInfo(); // вызываем метод getCategories при инициализации состояния
   }
 
   @override
   Widget build(BuildContext context) {
-    _getCategories(); // обновляем список категорий при каждом построении виджета
+    _getInitialInfo(); // обновляем список категорий при каждом построении виджета и список диет
     return Scaffold( 
       appBar: appBar(), // используем метод appBar для создания AppBar
       backgroundColor: Colors.white, // цвет фона страницы в каркассе
@@ -34,7 +45,20 @@ class _HomePageState extends State<HomePage> {
         children: [  // основной контент страницы
         _searchField(),
         SizedBox(height: 40), // отступ между полем поиска и заголовком
-        _categorySection(categories: categories)
+        _categorySection(categories: categories), // секция с категориями
+        SizedBox(height: 40,),
+        Column(
+          children: [
+            Text(
+              'Recomendation \n for Diet',
+              style: TextStyle(
+              color: Colors.black, // цвет текста
+              fontSize: 18, // размер шрифта
+              fontWeight: FontWeight.w600, // полужирный шрифт
+            )
+            )
+          ],
+        )
       ],),
     );
   }
