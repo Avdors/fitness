@@ -48,18 +48,65 @@ class _HomePageState extends State<HomePage> {
         _categorySection(categories: categories), // секция с категориями
         SizedBox(height: 40,),
         Column(
+          crossAxisAlignment: CrossAxisAlignment.start, // выравнивание по левому краю, чтобы Recomendation for Diet был выровнен по левому краю
           children: [
-            Text(
-              'Recomendation \n for Diet',
-              style: TextStyle(
-              color: Colors.black, // цвет текста
-              fontSize: 18, // размер шрифта
-              fontWeight: FontWeight.w600, // полужирный шрифт
-            )
-            )
-          ],
-        )
-      ],),
+            Padding(
+              padding: const EdgeInsets.only(left: 20),
+              child: Text(                                                             
+                'Recomendation \n for Diet',
+                style: TextStyle(
+                color: Colors.black, // цвет текста
+                fontSize: 18, // размер шрифта
+                fontWeight: FontWeight.w600, // полужирный шрифт
+              )
+              ),
+            ),
+            SizedBox(height: 15,),
+              Container(
+                //color: Colors.blue, // цвет фона контейнера),
+                height: 240,
+                child: ListView.separated(
+                  itemBuilder: (context, index){
+                    return Container(
+                      width: 210, // ширина контейнера с диетами
+                      decoration: BoxDecoration(
+                        color: diets[index].boxColor?.withOpacity(0.3), // цвет фона контейнера с диетами
+                        borderRadius: BorderRadius.circular(20), // скругление углов
+                      ),
+                      child: Column(children: [
+                        SvgPicture.asset(diets[index].iconPath ?? '', // иконка диеты
+                          width: 50, // ширина иконки
+                          height: 50, // высота иконки
+                        ),
+                        Text(
+                          diets[index].name ?? '',
+                          style: TextStyle(
+                            color: Colors.black, // цвет текста
+                            fontSize: 16, // размер шрифта
+                            fontWeight: FontWeight.w500, // жирный шрифт
+                          )
+                        ),
+                        Text(
+                         (diets[index].level ?? '') + ' | ' + (diets[index].duration ?? '') + ' | ' + (diets[index].calories ?? ''), // уровень сложности, время приготовления и калории
+                          style: TextStyle(
+                            color: Color(0xff7B6F72), // цвет текста
+                            fontSize: 13, // размер шрифта
+                            fontWeight: FontWeight.w400, // обычный шрифт
+                          ) 
+                        )
+                      ],)
+                    );
+                  },
+                   separatorBuilder: (context, index) => SizedBox(width: 25), // отступ между элементами в списке
+                   itemCount: diets.length, // количество элементов в списке диет)
+                  scrollDirection: Axis.horizontal, // направление прокрутки горизонтальное
+                  padding: EdgeInsets.only(left: 20, right: 20), // отступы слева и справа
+              ),
+              )
+            ],
+          ),
+        ],
+      ),
     );
   }
 

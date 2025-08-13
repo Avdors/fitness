@@ -7,6 +7,7 @@ class DietModel {
   String? duration;
   String? calories;
   bool? viewIsSelected;
+  Color? boxColor;
 
   DietModel({
     required this.name,
@@ -15,6 +16,7 @@ class DietModel {
     required this.duration,
     required this.calories,
     required this.viewIsSelected,
+    this.boxColor = const Color(0xff92A3FD), // default color if not provided
   });
 
   static List<DietModel> getDiets() {
