@@ -34,34 +34,7 @@ class _HomePageState extends State<HomePage> {
         children: [  // основной контент страницы
         _searchField(),
         SizedBox(height: 40), // отступ между полем поиска и заголовком
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start, // выравнивание по левому краю, прописываем еще раз
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 20),
-              child: Text(
-                "Category",
-                style: TextStyle(
-                  color: Colors.black, // цвет текста
-                  fontSize: 18, // размер шрифта
-                  fontWeight: FontWeight.bold, // жирный шрифт
-                )
-              ),
-            ),
-            SizedBox(height: 15), // отступ между заголовком и контейнером с категориями
-            Container(
-              height: 150, // высота контейнера с категориями
-              color: Colors.green,
-              child: ListView.builder(
-                itemBuilder: (context, index){
-                  return Container(
-
-                  ); // здесь будет код для отображения категорий
-                }
-              ),
-            )
-          ],
-        )
+        _categorySection(categories: categories)
       ],),
     );
   }
@@ -176,5 +149,83 @@ class _HomePageState extends State<HomePage> {
     ) 
     ],
   );
+  }
+}
+
+class _categorySection extends StatelessWidget {
+  const _categorySection({
+    super.key,
+    required this.categories,
+  });
+
+  final List<CategoryModel> categories;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start, // выравнивание по левому краю, прописываем еще раз
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(left: 20),
+          child: Text(
+            "Category",
+            style: TextStyle(
+              color: Colors.black, // цвет текста
+              fontSize: 18, // размер шрифта
+              fontWeight: FontWeight.bold, // жирный шрифт
+            )
+          ),
+        ),
+        SizedBox(height: 15), // отступ между заголовком и контейнером с категориями
+        Container(
+          height: 120, // высота контейнера с категориями
+    
+          //color: Colors.green,
+          child: ListView.separated(
+            itemCount: categories.length, // количество элементов в списке категорий
+            scrollDirection: Axis.horizontal, // направление прокрутки горизонтальное
+            padding: EdgeInsets.only(left: 20, right: 20), // отступ слева и справа
+            separatorBuilder: (context, index) => SizedBox(width: 25), // отступ между элементами
+            itemBuilder: (context, index){
+              return Container(
+                width: 100, // только при указании размеров отображается контейнер
+                decoration: BoxDecoration(
+                  color: categories[index].boxColor.withOpacity(0.3), // цвет фона контейнера
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly, // выравнивание по вертикали равномерное
+                  children: [
+                  
+                  Container(
+                    width: 50, // ширина иконки
+                    height: 50, // высота иконки
+                    decoration: BoxDecoration(
+                      color: Colors.white, // цвет фона иконки
+                      shape: BoxShape.circle, // форма круга
+                    ),
+                    child: Center(
+                      child: SvgPicture.asset( // иконка категории
+                        categories[index].iconPath,
+                        width: 30, // ширина иконки
+                        height: 30, // высота иконки
+                      ),
+                    ),
+                  ),
+                  Text(
+                    categories[index].name, // название категории
+                    style: TextStyle(
+                    color: Colors.black, // цвет текста
+                    fontSize: 18, // размер шрифта
+                    fontWeight: FontWeight.bold, // жирный шрифт,
+                      ) 
+                    ),
+                ],),
+              ); // здесь будет код для отображения категорий
+            }
+          ),
+        )
+      ],
+    );
   }
 }

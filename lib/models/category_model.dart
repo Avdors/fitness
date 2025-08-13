@@ -14,22 +14,22 @@ class CategoryModel {
     List<CategoryModel> categories = [];
     categories.add(CategoryModel(
       name: "Salad",
-      iconPath: "assets/icons/gym.svg",
+      iconPath: "assets/icon/category.svg",
       boxColor: Color(0xff92A3FD)
     ));
     categories.add(CategoryModel(
       name: "Cake",
-      iconPath: "assets/icons/gym.svg",
+      iconPath: "assets/icon/listgreen.svg",
       boxColor: Color(0xffC58BF2)
     ));
     categories.add(CategoryModel(
       name: "Pie",
-      iconPath: "assets/icons/gym.svg",
+      iconPath: "assets/icon/listgreen.svg",
       boxColor: Color(0xff92A3FD)
     ));
     categories.add(CategoryModel(
       name: "Smoothies",
-      iconPath: "assets/icons/gym.svg",
+      iconPath: "assets/icon/listgreen.svg",
       boxColor: Color(0xff92A3FD)
     ));
     return categories;
