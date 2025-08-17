@@ -64,6 +64,8 @@ flutter:
     - assets/icon/menu.svg
     - assets/icon/category.svg
     - assets/icon/listgreen.svg
+    - assets/icon/popular.svg
+    - assets/icon/Plus.svg
        
 
   # An image asset can refer to one or more resolution-specific "variants", see

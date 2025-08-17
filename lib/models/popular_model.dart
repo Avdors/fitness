@@ -24,7 +24,7 @@ class PopularDietModel {
 
     popularDiets.add(PopularDietModel(
       name: "Bluebarry Pancakes",
-      iconPath: "assets/icon/popular.svg",
+      iconPath: "assets/icon/category.svg",
       level: "Medium",
       duration: "30 mins",
       calories: "230 kcal",
