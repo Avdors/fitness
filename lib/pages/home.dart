@@ -72,7 +72,74 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
         SizedBox(height: 15), // отступ между заголовком и секцией с популярными диетами
-        _popularList(popularDiets: popularDiets)
+        ListView.separated(
+          itemCount: popularDiets.length,
+          shrinkWrap: true, // позволяет ListView занимать только необходимое пространство
+          separatorBuilder: (context, index) => SizedBox(height: 25,), // отступ между элементами
+          padding: EdgeInsets.only(left: 20, right: 20), // отступы слева и справа
+          itemBuilder: (context, index){
+            return Container(
+              height: 115,
+              decoration: BoxDecoration(
+                color: popularDiets[index].viewIsSelected! ? Colors.white : Colors.transparent, // цвет фона
+                
+                borderRadius: BorderRadius.circular(16), // скругление углов
+                boxShadow: popularDiets[index].viewIsSelected!
+                  ? [
+                      BoxShadow(
+                        color: Color(0xff1D1617).withOpacity(0.07), // цвет тени с прозрачностью
+                        spreadRadius: 2, // расстояние от границы до тени
+                        offset: Offset(0, 10),// смещение тени от границы
+                        blurRadius: 40, // радиус размытия тени
+                      )
+                    ]
+                  : [],
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly, // выравнивание по горизонтали
+                
+                children: [
+                  Image.asset(popularDiets[index].iconPath ?? '', // иконка диеты
+                      width: 65, // ширина иконки
+                      height: 65, // высота иконки
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start, // выравнивание по вертикали по левому краю,
+                    mainAxisAlignment: MainAxisAlignment.center, // выравнивание по вертикали по центру
+                    children: [
+                      Text(popularDiets[index].name ?? '',
+                        style: TextStyle(
+                          color: Colors.black, // цвет текста
+                          fontSize: 16, // размер шрифта
+                          fontWeight: FontWeight.w500, // полужирный шрифт
+                        )
+                      ),
+                      Text('${popularDiets[index].level ?? ''}|${popularDiets[index].duration ?? ''}|${popularDiets[index].calories ?? ''}',
+ 
+                        style: TextStyle(
+                          color: Color(0xff7B6F72), // цвет текста
+                          fontSize: 13, // размер шрифта
+                          fontWeight: FontWeight.w400, // полужирный шрифт
+                        )
+                      )
+                    ],), // иконка популярной диеты
+                    GestureDetector(
+                      onTap: (){
+
+                      },
+                      child: SvgPicture.asset(
+                        'assets/icon/Plus.svg',
+                        width: 30, // ширина иконки кнопки
+                        height: 30, // высота иконки кнопки
+                      )
+                    )
+                    
+                ],
+              ),
+            );
+
+          },
+        )
         ],
       ),
     );
@@ -188,87 +255,6 @@ class _HomePageState extends State<HomePage> {
     ) 
     ],
   );
-  }
-}
-
-class _popularList extends StatelessWidget {
-  const _popularList({
-    super.key,
-    required this.popularDiets,
-  });
-
-  final List<PopularDietModel> popularDiets;
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView.separated(
-      itemCount: popularDiets.length,
-      shrinkWrap: true, // позволяет ListView занимать только необходимое пространство
-      separatorBuilder: (context, index) => SizedBox(height: 25,), // отступ между элементами
-      padding: EdgeInsets.only(left: 20, right: 20), // отступы слева и справа
-      itemBuilder: (context, index){
-        return Container(
-          height: 115,
-          decoration: BoxDecoration(
-            color: popularDiets[index].viewIsSelected! ? Colors.white : Colors.transparent, // цвет фона
-            
-            borderRadius: BorderRadius.circular(16), // скругление углов
-            boxShadow: popularDiets[index].viewIsSelected!
-              ? [
-                  BoxShadow(
-                    color: Color(0xff1D1617).withOpacity(0.07), // цвет тени с прозрачностью
-                    spreadRadius: 2, // расстояние от границы до тени
-                    offset: Offset(0, 10),// смещение тени от границы
-                    blurRadius: 40, // радиус размытия тени
-                  )
-                ]
-              : [],
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly, // выравнивание по горизонтали
-            
-            children: [
-              SvgPicture.asset(popularDiets[index].iconPath ?? '', // иконка диеты
-                  width: 65, // ширина иконки
-                  height: 65, // высота иконки
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start, // выравнивание по вертикали по левому краю,
-                mainAxisAlignment: MainAxisAlignment.center, // выравнивание по вертикали по центру
-                children: [
-                  Text(popularDiets[index].name ?? '',
-                    style: TextStyle(
-                      color: Colors.black, // цвет текста
-                      fontSize: 16, // размер шрифта
-                      fontWeight: FontWeight.w500, // полужирный шрифт
-                    )
-                  ),
-                  Text('${popularDiets[index].level ?? ''}|${popularDiets[index].duration ?? ''}|${popularDiets[index].calories ?? ''}',
-     
-                    style: TextStyle(
-                      color: Color(0xff7B6F72), // цвет текста
-                      fontSize: 13, // размер шрифта
-                      fontWeight: FontWeight.w400, // полужирный шрифт
-                    )
-                  )
-                ],), // иконка популярной диеты
-                GestureDetector(
-                  onTap: (){
-    
-                  },
-                  child: SvgPicture.asset(
-                    'assets/icon/Plus.svg',
-                    width: 30, // ширина иконки кнопки
-                    height: 30, // высота иконки кнопки
-                  )
-                )
-                
-            ],
-          ),
-        );
-    
-      },
-    );
   }
 }
 

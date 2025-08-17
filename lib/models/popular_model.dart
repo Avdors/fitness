@@ -24,7 +24,7 @@ class PopularDietModel {
 
     popularDiets.add(PopularDietModel(
       name: "Bluebarry Pancakes",
-      iconPath: "assets/icon/category.svg",
+      iconPath: "assets/icon/popular-png.png",
       level: "Medium",
       duration: "30 mins",
       calories: "230 kcal",
@@ -33,7 +33,7 @@ class PopularDietModel {
 
     popularDiets.add(PopularDietModel(
       name: "Salmon nigiri",
-      iconPath: "assets/icon/popular.svg",
+      iconPath: "assets/icon/popular-png.png",
       level: "Easy",
       duration: "10 mins",
       calories: "200 kcal",
