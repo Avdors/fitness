@@ -1,5 +1,6 @@
 import 'package:fitness/models/category_model.dart';
 import 'package:fitness/models/diet_model.dart';
+import 'package:fitness/models/popular_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -15,10 +16,14 @@ class _HomePageState extends State<HomePage> {
   List<CategoryModel> categories = []; 
  // назначаем переменную для хранения списка категорий
  List<DietModel> diets = []; // назначаем переменную для хранения списка диет
+ List<PopularDietModel> popularDiets = []; // получаем список популярных диет
   void _getCategories() {
     categories = CategoryModel.getCategories(); // вызываем метод getCategories из модели CategoryModel
   }
-
+  
+  void _getPopularDiets() {
+    popularDiets = PopularDietModel.getPopularDiets(); // вызываем метод getPopularDiets из модели PopularDietModel
+  }
   void _getDiets() {
     diets = DietModel.getDiets(); // вызываем метод getCategories из модели CategoryModel
   }
@@ -26,6 +31,7 @@ class _HomePageState extends State<HomePage> {
   void _getInitialInfo(){
     _getCategories(); // вызываем метод getCategories для получения списка категорий
     _getDiets(); // вызываем метод getDiets для получения списка диет
+    _getPopularDiets(); // вызываем метод getPopularDiets для получения списка популярных 
   }
 
   @override
@@ -36,18 +42,36 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    _getInitialInfo(); // обновляем список категорий при каждом построении виджета и список диет
+    initState(); // обновляем список категорий при каждом построении виджета и список диет
     return Scaffold( 
       appBar: appBar(), // используем метод appBar для создания AppBar
       backgroundColor: Colors.white, // цвет фона страницы в каркассе
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start, // выравнивание по левому краю
+      body: ListView(
+        //crossAxisAlignment: CrossAxisAlignment.start, // выравнивание по левому краю
         children: [  // основной контент страницы
         _searchField(),
         SizedBox(height: 40), // отступ между полем поиска и заголовком
         _categorySection(categories: categories), // секция с категориями
         SizedBox(height: 40,),
         _dietSection(diets: diets),
+        SizedBox(height: 40,),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start, // выравнивание по левому краю
+          children: [ // секция с популярными диетами
+            Padding(
+              padding: const EdgeInsets.only(left: 20),
+              child: Text(
+                'Popular', // заголовок секции
+                style: TextStyle( // стиль заголовка
+                  fontSize: 18, // размер шрифта
+                  fontWeight: FontWeight.w600, // жирный шрифт
+                  color: Colors.black // цвет шрифта
+                )
+              ),
+            ),
+          ],
+        ),
+        SizedBox(height: 40), // отступ между заголовком и секцией с популярными диетами
         ],
       ),
     );
